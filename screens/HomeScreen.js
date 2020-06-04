@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import axios from "axios";
+import { getContacts } from "../redux/contacts/actions";
+import { mapDispatchActions } from "../redux/mapDispatchActions";
+import { useDispatch, useMappedState } from "redux-react-hook";
+const mappedState = state => ({
+  contacts: state.contactReducer.contacts
+});
 export default () => {
+  const { contacts } = useMappedState(mappedState);
+  const dispatch = useDispatch();
+  const actions = mapDispatchActions({ getContacts }, dispatch);
   const [page, setPage] = useState(1);
   useEffect(() => {
-    axios
-      .get(`https://reqres.in/api/users?page=${page}`)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    actions.getContacts();
   });
   return (
     <View>
