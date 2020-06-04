@@ -1,4 +1,5 @@
 import { GET_CONTACTS } from "./types";
+import axios from "axios";
 
 export function getContactsPending() {
   return {
@@ -23,7 +24,8 @@ export function getContacts(page) {
     axios
       .get(`https://reqres.in/api/users?page=${page}`)
       .then(response => {
-        console.log(response.data);
+        console.log(response.data.data);
+        dispatch(getContactsSuccess(response.data.data));
       })
       .catch(err => {
         console.log(err);
