@@ -1,9 +1,10 @@
-import { GET_CONTACTS } from "./types";
+import { GET_CONTACTS, PAGINATE } from "./types";
 
 const initialState = {
   contacts: [],
   pending: false,
-  erorr: null
+  erorr: null,
+  page: 0
 };
 export default function contactsReducer(state = initialState, action) {
   switch (action.type) {

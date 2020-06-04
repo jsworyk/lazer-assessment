@@ -3,3 +3,4 @@ export const GET_CONTACTS = {
   PENDING: "PENDING",
   ERROR: "ERROR"
 };
+export const PAGINATE = "PAGINATE";

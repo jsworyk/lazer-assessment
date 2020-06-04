@@ -5,14 +5,15 @@ import { mapDispatchActions } from "../redux/mapDispatchActions";
 import { useDispatch, useMappedState } from "redux-react-hook";
 import ContactTile from "../components/ContactTile";
 const mappedState = state => ({
-  contacts: state.contactReducer.contacts
+  contacts: state.contactReducer.contacts,
+  page: state.contactReducer.page
 });
 export default () => {
-  const { contacts } = useMappedState(mappedState);
+  const { contacts, page } = useMappedState(mappedState);
   const dispatch = useDispatch();
   const actions = mapDispatchActions({ getContacts }, dispatch);
   useEffect(() => {
-    actions.getContacts(1);
+    actions.getContacts(page);
     console.log(contacts, "contacts");
   }, []);
   const _renderItem = ({ item, index }) => <ContactTile item={item} index={index} />;
