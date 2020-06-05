@@ -5,13 +5,15 @@ import { useMappedState, useDispatch } from "redux-react-hook";
 import { mapDispatchActions } from "../redux/mapDispatchActions";
 import { setContactList } from "../redux/contacts/actions";
 import { extractInitialsFromName } from "../utils";
+import { getColorSheet } from "../constants";
 
 const mappedState = state => ({
-  contacts: state.contactReducer.contacts
+  contacts: state.contactReducer.contacts,
+  darkTheme: state.themeReducer.darkTheme
 });
 
 export default ({ item, navigation, route, editing, setEditing }) => {
-  const { contacts } = useMappedState(mappedState);
+  const { contacts, darkTheme } = useMappedState(mappedState);
   const [firstName, setFirstName] = useState(item.first_name);
   const [lastName, setLastName] = useState(item.last_name);
   const [email, setEmail] = useState(item.email);
@@ -47,10 +49,7 @@ export default ({ item, navigation, route, editing, setEditing }) => {
     <View>
       {/* in case the user doesn't have a profile image */}
       {item.avatar ? (
-        <Image
-          style={{ height: 120, width: 120, borderRadius: 60, alignSelf: "center" }}
-          source={{ uri: item.avatar }}
-        />
+        <Image style={styles.avatar} source={{ uri: item.avatar }} />
       ) : (
         <View style={styles.avatar}>
           <Text style={styles.initials}>
@@ -60,7 +59,7 @@ export default ({ item, navigation, route, editing, setEditing }) => {
       )}
       <View style={{ marginTop: 8 }}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { color: getColorSheet(darkTheme).text }]}
           value={firstName}
           onChangeText={text => setFirstName(text)}
           placeholder={firstName}
@@ -69,14 +68,14 @@ export default ({ item, navigation, route, editing, setEditing }) => {
         <TextInput
           value={lastName}
           onChangeText={text => setLastName(text)}
-          style={styles.input}
+          style={[styles.input, { color: getColorSheet(darkTheme).text }]}
           placeholder={lastName}
           placeholderTextColor="#000"
         />
         <TextInput
           value={email}
           onChangeText={text => setEmail(text)}
-          style={styles.input}
+          style={[styles.input, { color: getColorSheet(darkTheme).text }]}
           placeholder={email}
           placeholderTextColor="#000"
         />
@@ -114,5 +113,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFF",
     fontSize: 40
+  },
+  avatar: {
+    height: 120,
+    width: 120,
+    borderRadius: 60,
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: "#000"
   }
 });

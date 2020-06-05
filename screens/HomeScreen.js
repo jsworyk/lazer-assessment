@@ -5,17 +5,23 @@ import { mapDispatchActions } from "../redux/mapDispatchActions";
 import { useDispatch, useMappedState } from "redux-react-hook";
 import ContactTile from "../components/ContactTile";
 import Button from "../components/Button";
+import { getColorSheet } from "../constants";
 const SETTINGS = require("../assets/drawer_settings.png");
 const mappedState = state => ({
-  contacts: state.contactReducer.contacts
+  contacts: state.contactReducer.contacts,
+  darkTheme: state.themeReducer.darkTheme
 });
 export default ({ navigation }) => {
+  const { contacts, darkTheme } = useMappedState(mappedState);
   const [page, setPage] = useState(1);
-  const { contacts } = useMappedState(mappedState);
   const dispatch = useDispatch();
   const actions = mapDispatchActions({ getContacts }, dispatch);
   useEffect(() => {
     navigation.setOptions({
+      headerStyle: {
+        backgroundColor: getColorSheet(darkTheme).background
+      },
+      headerTintColor: getColorSheet(darkTheme).text,
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <Image
@@ -26,7 +32,7 @@ export default ({ navigation }) => {
       )
     });
     actions.getContacts(page);
-  }, []);
+  }, [darkTheme]);
   const loadNextPage = () => {
     let index = page;
     index++;
@@ -40,7 +46,7 @@ export default ({ navigation }) => {
     <>
       {contacts && contacts.length > 0 ? (
         <FlatList
-          style={{ backgroundColor: "white", flex: 1 }}
+          style={{ backgroundColor: getColorSheet(darkTheme).background, flex: 1 }}
           /* Always showing list footer...
           in a real world implementation 
           an API response is something that can change so it

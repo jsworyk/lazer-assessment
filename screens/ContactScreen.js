@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, Image, ScrollView, View, Linking } from "react-native";
 import { extractInitialsFromName } from "../utils";
 import EditContactScreen from "./EditContactScreen";
+import { useMappedState } from "redux-react-hook";
+import { getColorSheet } from "../constants";
+const mappedState = state => ({
+  darkTheme: state.themeReducer.darkTheme
+});
 export default ({ navigation, route }) => {
+  const { darkTheme } = useMappedState(mappedState);
   const [user, setUser] = useState({});
   const [index, setIndex] = useState(-1);
   const [editing, setEditing] = useState(false);
@@ -19,6 +25,10 @@ export default ({ navigation, route }) => {
     }
     navigation.setOptions({
       title: null,
+      headerStyle: {
+        backgroundColor: getColorSheet(darkTheme).background
+      },
+      headerTintColor: getColorSheet(darkTheme).text,
       headerRight: () => (
         <Text
           onPress={() => {
@@ -32,7 +42,9 @@ export default ({ navigation, route }) => {
     });
   }, [editing]);
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={[styles.container, { backgroundColor: getColorSheet(darkTheme).background }]}
+    >
       {editing ? (
         <EditContactScreen
           editing={editing}
@@ -53,15 +65,15 @@ export default ({ navigation, route }) => {
               </Text>
             </View>
           )}
-          <Text style={styles.name}>
+          <Text style={[styles.name, { color: getColorSheet(darkTheme).text }]}>
             {user.first_name} {user.last_name}
           </Text>
-          <Text style={styles.fieldTitle}>email</Text>
+          <Text style={[styles.fieldTitle, { color: getColorSheet(darkTheme).text }]}>email</Text>
           <Text
             onPress={() => {
               Linking.openURL(`mailto:${user.email}?subject=Greetings From Lazer`);
             }}
-            style={styles.fieldValue}
+            style={[styles.fieldValue, { color: getColorSheet(darkTheme).text }]}
           >
             {user.email}
           </Text>

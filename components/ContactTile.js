@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
+import { useMappedState } from "redux-react-hook";
+const mappedState = state => ({
+  darkTheme: state.themeReducer.darkTheme
+});
 export default ({ item, index, navigation }) => {
+  const { darkTheme } = useMappedState(mappedState);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -13,8 +18,10 @@ export default ({ item, index, navigation }) => {
     >
       <Image style={styles.avatar} source={{ uri: item.avatar }} />
       <View style={styles.contactInfoContainer}>
-        <Text style={styles.name}>{`${item.first_name} ${item.last_name}`}</Text>
-        <Text style={styles.email}>{item.email}</Text>
+        <Text
+          style={[styles.name, { color: darkTheme ? "#FFF" : "#333" }]}
+        >{`${item.first_name} ${item.last_name}`}</Text>
+        <Text style={[styles.email, { color: darkTheme ? "#FFF" : "#333" }]}>{item.email}</Text>
       </View>
     </TouchableOpacity>
   );
