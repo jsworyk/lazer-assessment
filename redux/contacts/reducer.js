@@ -11,7 +11,7 @@ export default function contactsReducer(state = initialState, action) {
     case GET_CONTACTS.SUCCESS: {
       return {
         ...state,
-        contacts: action.payload
+        contacts: state.contacts.concat(action.payload)
       };
     }
     default:
