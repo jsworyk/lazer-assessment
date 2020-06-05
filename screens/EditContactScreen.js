@@ -4,19 +4,20 @@ import { TextInput } from "react-native-gesture-handler";
 import { useMappedState, useDispatch } from "redux-react-hook";
 import { mapDispatchActions } from "../redux/mapDispatchActions";
 import { setContactList } from "../redux/contacts/actions";
+import { extractInitialsFromName } from "../utils";
 
 const mappedState = state => ({
   contacts: state.contactReducer.contacts
 });
 
-export default ({ item, navigation, route }) => {
+export default ({ item, navigation, route, editing, setEditing }) => {
   const { contacts } = useMappedState(mappedState);
   const [firstName, setFirstName] = useState(item.first_name);
   const [lastName, setLastName] = useState(item.last_name);
   const [email, setEmail] = useState(item.email);
   const dispatch = useDispatch();
   const actions = mapDispatchActions({ setContactList }, dispatch);
-  const editing = () => {
+  const isEditing = () => {
     if (firstName !== item.first_name || lastName !== item.last_name || email !== item.email) {
       return true;
     }
@@ -25,15 +26,12 @@ export default ({ item, navigation, route }) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Text
-          onPress={editing() ? () => updateContact() : null}
-          style={{ paddingRight: 12, fontSize: 18, color: "#2962FF" }}
-        >
-          {editing() ? "Save" : "Cancel"}
+        <Text onPress={isEditing() ? () => updateContact() : null} style={styles.headerRightText}>
+          {isEditing() ? "Save" : "Cancel"}
         </Text>
       )
     });
-  }, [firstName, lastName, email]);
+  }, [firstName, lastName, email, contacts]);
   const updateContact = () => {
     let arr = contacts;
     let index = route.params.index;
@@ -43,13 +41,23 @@ export default ({ item, navigation, route }) => {
     insert.email = email;
     arr[index] = insert;
     actions.setContactList(arr);
+    setEditing(!editing);
   };
   return (
     <View>
-      <Image
-        style={{ height: 120, width: 120, borderRadius: 60, alignSelf: "center" }}
-        source={{ uri: item.avatar }}
-      />
+      {/* in case the user doesn't have a profile image */}
+      {item.avatar ? (
+        <Image
+          style={{ height: 120, width: 120, borderRadius: 60, alignSelf: "center" }}
+          source={{ uri: item.avatar }}
+        />
+      ) : (
+        <View style={styles.avatar}>
+          <Text style={styles.initials}>
+            {extractInitialsFromName(user.first_name, user.last_name)}
+          </Text>
+        </View>
+      )}
       <View style={{ marginTop: 8 }}>
         <TextInput
           style={styles.input}
@@ -95,5 +103,15 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     fontSize: 16
+  },
+  headerRightText: {
+    paddingRight: 12,
+    fontSize: 18,
+    color: "#2962FF"
+  },
+  initials: {
+    textAlign: "center",
+    color: "#FFF",
+    fontSize: 40
   }
 });

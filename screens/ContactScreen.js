@@ -34,7 +34,14 @@ export default ({ navigation, route }) => {
   return (
     <ScrollView style={styles.container}>
       {editing ? (
-        <EditContactScreen index={index} route={route} navigation={navigation} item={user} />
+        <EditContactScreen
+          editing={editing}
+          setEditing={setEditing}
+          index={index}
+          route={route}
+          navigation={navigation}
+          item={user}
+        />
       ) : (
         <>
           {user.avatar ? (
