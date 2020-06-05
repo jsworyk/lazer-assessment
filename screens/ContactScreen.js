@@ -24,7 +24,7 @@ export default ({ navigation, route }) => {
           onPress={() => {
             setEditing(!editing);
           }}
-          style={{ paddingRight: 12, fontSize: 18, color: "#2962FF" }}
+          style={styles.headerRightText}
         >
           {editing ? "Cancel" : "Edit"}
         </Text>
@@ -96,5 +96,10 @@ const styles = StyleSheet.create({
   fieldValue: {
     marginTop: 8,
     fontSize: 14
+  },
+  headerRightText: {
+    paddingRight: 12,
+    fontSize: 18,
+    color: "#2962FF"
   }
 });

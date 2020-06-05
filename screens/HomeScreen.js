@@ -29,6 +29,7 @@ export default ({ navigation }) => {
     <>
       {contacts && contacts.length > 0 ? (
         <FlatList
+          style={{ backgroundColor: "white", flex: 1 }}
           ListFooterComponent={() => <Button onPressHandler={loadNextPage} label="Load More" />}
           data={contacts}
           renderItem={_renderItem}
