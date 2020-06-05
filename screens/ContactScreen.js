@@ -9,6 +9,7 @@ const mappedState = state => ({
 });
 export default ({ navigation, route }) => {
   const { darkTheme } = useMappedState(mappedState);
+  const [offset, setOffset] = useState(0);
   const [user, setUser] = useState({});
   const [index, setIndex] = useState(-1);
   const [editing, setEditing] = useState(false);
@@ -24,7 +25,7 @@ export default ({ navigation, route }) => {
       setIndex(route.params.index);
     }
     navigation.setOptions({
-      title: null,
+      title: offset >= 166 ? `${user.first_name} ${user.last_name}` : null,
       headerStyle: {
         backgroundColor: getColorSheet(darkTheme).background
       },
@@ -40,9 +41,14 @@ export default ({ navigation, route }) => {
         </Text>
       )
     });
-  }, [editing]);
+  }, [editing, offset]);
+  const handleScroll = event => {
+    setOffset(event.nativeEvent.contentOffset.y);
+  };
   return (
     <ScrollView
+      scrollEventThrottle={16}
+      onScroll={event => handleScroll(event)}
       style={[styles.container, { backgroundColor: getColorSheet(darkTheme).background }]}
     >
       {editing ? (
