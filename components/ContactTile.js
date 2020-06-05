@@ -1,8 +1,13 @@
 import React from "react";
 import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
-export default ({ item, index }) => {
+export default ({ item, index, navigation }) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("Contact");
+      }}
+      style={styles.container}
+    >
       <Image style={styles.avatar} source={{ uri: item.avatar }} />
       <View style={styles.contactInfoContainer}>
         <Text style={styles.name}>{`${item.first_name} ${item.last_name}`}</Text>

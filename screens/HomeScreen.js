@@ -8,7 +8,7 @@ import Button from "../components/Button";
 const mappedState = state => ({
   contacts: state.contactReducer.contacts
 });
-export default () => {
+export default ({ navigation }) => {
   const [page, setPage] = useState(1);
   const { contacts } = useMappedState(mappedState);
   const dispatch = useDispatch();
@@ -22,7 +22,9 @@ export default () => {
     actions.getContacts(index);
     setPage(index);
   };
-  const _renderItem = ({ item, index }) => <ContactTile item={item} index={index} />;
+  const _renderItem = ({ item, index }) => (
+    <ContactTile navigation={navigation} item={item} index={index} />
+  );
   return (
     <>
       {contacts && contacts.length > 0 ? (
