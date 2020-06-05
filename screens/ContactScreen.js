@@ -5,13 +5,6 @@ import EditContactScreen from "./EditContactScreen";
 export default ({ navigation, route }) => {
   const [user, setUser] = useState({});
   const [editing, setEditing] = useState(false);
-  const setRightButtonState = () => {
-    if (editing) {
-      return "Save";
-    } else {
-      return "Edit";
-    }
-  };
   useEffect(() => {
     if (route && route.params && route.params.Contact && route.params.Contact) {
       setUser(route.params.Contact);
@@ -23,17 +16,17 @@ export default ({ navigation, route }) => {
           onPress={() => {
             setEditing(!editing);
           }}
-          style={{ paddingRight: 12, fontSize: 16 }}
+          style={{ paddingRight: 12, fontSize: 18, color: "#2962FF" }}
         >
-          {setRightButtonState()}
+          {editing ? "Save" : "Edit"}
         </Text>
       )
     });
-  });
+  }, [editing]);
   return (
     <ScrollView style={styles.container}>
       {editing ? (
-        <EditContactScreen item={user} />
+        <EditContactScreen navigation={navigation} item={user} />
       ) : (
         <>
           {user.avatar ? (

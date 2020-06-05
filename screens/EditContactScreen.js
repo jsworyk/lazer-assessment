@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 export default ({ item }) => {
@@ -20,8 +20,20 @@ export default ({ item }) => {
           placeholder={firstName}
           placeholderTextColor="#000"
         />
-        <TextInput style={styles.input} placeholder={item.last_name} placeholderTextColor="#000" />
-        <TextInput style={styles.input} placeholder={item.email} placeholderTextColor="#000" />
+        <TextInput
+          value={lastName}
+          onChangeText={text => setLastName(text)}
+          style={styles.input}
+          placeholder={lastName}
+          placeholderTextColor="#000"
+        />
+        <TextInput
+          value={email}
+          onChangeText={text => setEmail(text)}
+          style={styles.input}
+          placeholder={email}
+          placeholderTextColor="#000"
+        />
       </View>
     </View>
   );
