@@ -5,14 +5,15 @@ import { extractInitialsFromName } from "../utils";
 const mappedState = state => ({
   darkTheme: state.themeReducer.darkTheme
 });
-export default ({ item, index, navigation }) => {
+export default ({ item, index, navigation, sync }) => {
   const { darkTheme } = useMappedState(mappedState);
   return (
     <TouchableOpacity
       onPress={() => {
         navigation.navigate("Contact", {
           Contact: item,
-          index
+          index,
+          sync
         });
       }}
       style={styles.container}

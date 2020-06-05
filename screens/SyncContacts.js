@@ -40,10 +40,10 @@ export default ({ navigation }) => {
         ? item.emailAddresses[0].email
         : null;
     obj.avatr = item.thumbnailPath;
-    return <ContactTile navigation={navigation} item={obj} index={index} />;
+    return <ContactTile sync navigation={navigation} item={obj} index={index} />;
   };
   return (
-    <View>
+    <View style={{ backgroundColor: getColorSheet(darkTheme).background, flex: 1, padding: 12 }}>
       <FlatList
         renderItem={renderItem}
         data={retrievedContacts && retrievedContacts.length > 0 ? retrievedContacts : null}
@@ -52,10 +52,4 @@ export default ({ navigation }) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  headerRightText: {
-    paddingRight: 12,
-    fontSize: 18,
-    color: "#2962FF"
-  }
-});
+const styles = StyleSheet.create({});

@@ -30,16 +30,19 @@ export default ({ navigation, route }) => {
         backgroundColor: getColorSheet(darkTheme).background
       },
       headerTintColor: getColorSheet(darkTheme).text,
-      headerRight: () => (
-        <Text
-          onPress={() => {
-            setEditing(!editing);
-          }}
-          style={styles.headerRightText}
-        >
-          {editing ? "Cancel" : "Edit"}
-        </Text>
-      )
+      headerRight:
+        route && route.params && !route.params.sync
+          ? () => (
+              <Text
+                onPress={() => {
+                  setEditing(!editing);
+                }}
+                style={styles.headerRightText}
+              >
+                {editing ? "Cancel" : "Edit"}
+              </Text>
+            )
+          : null
     });
   }, [editing, offset]);
   const handleScroll = event => {
