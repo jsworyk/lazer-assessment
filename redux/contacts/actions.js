@@ -24,6 +24,7 @@ export function getContacts(page) {
     axios
       .get(`https://reqres.in/api/users?page=${page}`)
       .then(response => {
+        console.log(response);
         dispatch(getContactsSuccess(response.data.data));
       })
       .catch(err => {

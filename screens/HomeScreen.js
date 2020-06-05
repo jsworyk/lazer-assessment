@@ -30,6 +30,13 @@ export default ({ navigation }) => {
       {contacts && contacts.length > 0 ? (
         <FlatList
           style={{ backgroundColor: "white", flex: 1 }}
+          /* Always showing list footer...
+          in a real world implementation 
+          an API response is something that can change so it
+          feels weird to conditionally show or hide the show more button.
+          Pseudo Code for hiding it: 
+          if the length of contacts array === the 'total' field included in the API response. We know we have hit the end of the list.
+           */
           ListFooterComponent={() => <Button onPressHandler={loadNextPage} label="Load More" />}
           data={contacts}
           renderItem={_renderItem}
