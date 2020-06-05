@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, ActivityIndicator, View, Text, Image } from "react-native";
+import { FlatList, ActivityIndicator, Image, TouchableOpacity } from "react-native";
 import { getContacts } from "../redux/contacts/actions";
 import { mapDispatchActions } from "../redux/mapDispatchActions";
 import { useDispatch, useMappedState } from "redux-react-hook";
 import ContactTile from "../components/ContactTile";
 import Button from "../components/Button";
+const SETTINGS = require("../assets/drawer_settings.png");
 const mappedState = state => ({
   contacts: state.contactReducer.contacts
 });
@@ -14,6 +15,16 @@ export default ({ navigation }) => {
   const dispatch = useDispatch();
   const actions = mapDispatchActions({ getContacts }, dispatch);
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+          <Image
+            source={SETTINGS}
+            style={{ height: 30, width: 30, borderRadius: 15, marginRight: 15 }}
+          />
+        </TouchableOpacity>
+      )
+    });
     actions.getContacts(page);
   }, []);
   const loadNextPage = () => {
