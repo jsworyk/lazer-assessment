@@ -12,7 +12,7 @@ export default ({ navigation, route }) => {
       route.params &&
       route.params.Contact &&
       route.params.Contact &&
-      route.params.index
+      route.params.index >= 0
     ) {
       setUser(route.params.Contact);
       setIndex(route.params.index);
