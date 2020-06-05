@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, Image, ScrollView, View } from "react-native";
+import { StyleSheet, Text, Image, ScrollView, View, Linking } from "react-native";
 import { extractInitialsFromName } from "../utils";
 import EditContactScreen from "./EditContactScreen";
 export default ({ navigation, route }) => {
@@ -57,7 +57,14 @@ export default ({ navigation, route }) => {
             {user.first_name} {user.last_name}
           </Text>
           <Text style={styles.fieldTitle}>email</Text>
-          <Text style={styles.fieldValue}>{user.email}</Text>
+          <Text
+            onPress={() => {
+              Linking.openURL(`mailto:${user.email}?subject=Greetings From Lazer`);
+            }}
+            style={styles.fieldValue}
+          >
+            {user.email}
+          </Text>
         </>
       )}
     </ScrollView>
