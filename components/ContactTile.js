@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
 import { useMappedState } from "redux-react-hook";
+import { extractInitialsFromName } from "../utils";
 const mappedState = state => ({
   darkTheme: state.themeReducer.darkTheme
 });
@@ -16,7 +17,15 @@ export default ({ item, index, navigation }) => {
       }}
       style={styles.container}
     >
-      <Image style={styles.avatar} source={{ uri: item.avatar }} />
+      {item.avatar ? (
+        <Image style={styles.avatar} source={{ uri: item.avatar }} />
+      ) : (
+        <View style={styles.initialWrapper}>
+          <Text style={styles.initialText}>
+            {extractInitialsFromName(item.first_name, item.last_name)}
+          </Text>
+        </View>
+      )}
       <View style={styles.contactInfoContainer}>
         <Text
           style={[styles.name, { color: darkTheme ? "#FFF" : "#333" }]}
@@ -44,5 +53,19 @@ const styles = StyleSheet.create({
   },
   contactInfoContainer: {
     marginLeft: 8
+  },
+  initialWrapper: {
+    backgroundColor: "#2962FF",
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    backgroundColor: "#2962FF",
+    justifyContent: "center"
+  },
+  initialText: {
+    textAlign: "center",
+    color: "#FFF",
+    fontWeight: "bold",
+    alignSelf: "center"
   }
 });

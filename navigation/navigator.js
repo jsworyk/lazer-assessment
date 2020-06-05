@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/HomeScreen";
 import ContactScreen from "../screens/ContactScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import SyncContacts from "../screens/SyncContacts";
 const Stack = createStackNavigator();
 
 function RootNavigation(navigation) {
@@ -12,6 +13,7 @@ function RootNavigation(navigation) {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Contact" component={ContactScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="Sync" component={SyncContacts} />
     </Stack.Navigator>
   );
 }

@@ -1,6 +1,8 @@
 export const extractInitialsFromName = (firstName, lastName) => {
   if (firstName && lastName) {
-    return firstName.charAt(0).toUpperCase() + " " + lastName.charAt(0).toUpperCase();
+    return firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
+  } else if (firstName) {
+    return firstName.charAt(0).toUpperCase();
   }
   return null;
 };

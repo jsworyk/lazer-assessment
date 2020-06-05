@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, ActivityIndicator, Image, TouchableOpacity } from "react-native";
+import { FlatList, ActivityIndicator, Image, TouchableOpacity, Text } from "react-native";
 import { getContacts } from "../redux/contacts/actions";
 import { mapDispatchActions } from "../redux/mapDispatchActions";
 import { useDispatch, useMappedState } from "redux-react-hook";
@@ -7,6 +7,7 @@ import ContactTile from "../components/ContactTile";
 import Button from "../components/Button";
 import { getColorSheet } from "../constants";
 const SETTINGS = require("../assets/drawer_settings.png");
+const CONTACTS = require("../assets/phone.png");
 const mappedState = state => ({
   contacts: state.contactReducer.contacts,
   darkTheme: state.themeReducer.darkTheme
@@ -26,6 +27,19 @@ export default ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <Image
             source={SETTINGS}
+            style={{ height: 30, width: 30, borderRadius: 15, marginRight: 15 }}
+          />
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Sync");
+          }}
+          style={{ marginLeft: 15 }}
+        >
+          <Image
+            source={CONTACTS}
             style={{ height: 30, width: 30, borderRadius: 15, marginRight: 15 }}
           />
         </TouchableOpacity>

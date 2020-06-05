@@ -38,6 +38,8 @@ target 'rolodex' do
 
   # 3rd Party PodFiles
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+  pod 'react-native-contacts', :path => '../node_modules/react-native-contacts' 
+
 
 
   # Other native modules
