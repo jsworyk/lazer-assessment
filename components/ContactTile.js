@@ -14,7 +14,7 @@ export default ({ item, index, navigation }) => {
       <Image style={styles.avatar} source={{ uri: item.avatar }} />
       <View style={styles.contactInfoContainer}>
         <Text style={styles.name}>{`${item.first_name} ${item.last_name}`}</Text>
-        <Text style={styles.name}>{item.email}</Text>
+        <Text style={styles.email}>{item.email}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 15
   },
   name: {
-    fontWeight: "500"
+    fontWeight: "bold"
   },
   email: {
     fontWeight: "normal"
