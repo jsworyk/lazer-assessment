@@ -4,10 +4,18 @@ import { extractInitialsFromName } from "../utils";
 import EditContactScreen from "./EditContactScreen";
 export default ({ navigation, route }) => {
   const [user, setUser] = useState({});
+  const [index, setIndex] = useState(-1);
   const [editing, setEditing] = useState(false);
   useEffect(() => {
-    if (route && route.params && route.params.Contact && route.params.Contact) {
+    if (
+      route &&
+      route.params &&
+      route.params.Contact &&
+      route.params.Contact &&
+      route.params.index
+    ) {
       setUser(route.params.Contact);
+      setIndex(route.params.index);
     }
     navigation.setOptions({
       title: null,
@@ -26,7 +34,7 @@ export default ({ navigation, route }) => {
   return (
     <ScrollView style={styles.container}>
       {editing ? (
-        <EditContactScreen navigation={navigation} item={user} />
+        <EditContactScreen index={index} route={route} navigation={navigation} item={user} />
       ) : (
         <>
           {user.avatar ? (

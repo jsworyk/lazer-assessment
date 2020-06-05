@@ -3,4 +3,4 @@ export const GET_CONTACTS = {
   PENDING: "PENDING",
   ERROR: "ERROR"
 };
-export const PAGINATE = "PAGINATE";
+export const UPDATE_CONTACT_LIST = "UPDATE_CONTACT_LIST";

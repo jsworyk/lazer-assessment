@@ -1,10 +1,9 @@
-import { GET_CONTACTS, PAGINATE } from "./types";
+import { GET_CONTACTS, UPDATE_CONTACT_LIST } from "./types";
 
 const initialState = {
   contacts: [],
   pending: false,
-  erorr: null,
-  page: 0
+  erorr: null
 };
 export default function contactsReducer(state = initialState, action) {
   switch (action.type) {
@@ -12,6 +11,12 @@ export default function contactsReducer(state = initialState, action) {
       return {
         ...state,
         contacts: state.contacts.concat(action.payload)
+      };
+    }
+    case UPDATE_CONTACT_LIST: {
+      return {
+        ...state,
+        contacts: action.payload
       };
     }
     default:

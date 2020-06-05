@@ -5,7 +5,8 @@ export default ({ item, index, navigation }) => {
     <TouchableOpacity
       onPress={() => {
         navigation.navigate("Contact", {
-          Contact: item
+          Contact: item,
+          index
         });
       }}
       style={styles.container}

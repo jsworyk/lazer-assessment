@@ -1,4 +1,4 @@
-import { GET_CONTACTS } from "./types";
+import { GET_CONTACTS, UPDATE_CONTACT_LIST } from "./types";
 import axios from "axios";
 
 export function getContactsPending() {
@@ -29,5 +29,11 @@ export function getContacts(page) {
       .catch(err => {
         console.log(err);
       });
+  };
+}
+export function setContactList(contacts) {
+  return {
+    type: UPDATE_CONTACT_LIST,
+    payload: contacts
   };
 }

@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { useMappedState, useDispatch } from "redux-react-hook";
+import { mapDispatchActions } from "../redux/mapDispatchActions";
+import { setContactList } from "../redux/contacts/actions";
 
-export default ({ item, navigation }) => {
+const mappedState = state => ({
+  contacts: state.contactReducer.contacts
+});
+
+export default ({ item, navigation, route }) => {
+  const { contacts } = useMappedState(mappedState);
   const [firstName, setFirstName] = useState(item.first_name);
   const [lastName, setLastName] = useState(item.last_name);
   const [email, setEmail] = useState(item.email);
+  const dispatch = useDispatch();
+  const actions = mapDispatchActions({ setContactList }, dispatch);
   const editing = () => {
     if (firstName !== item.first_name || lastName !== item.last_name || email !== item.email) {
       return true;
@@ -15,12 +25,25 @@ export default ({ item, navigation }) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Text style={{ paddingRight: 12, fontSize: 18, color: "#2962FF" }}>
+        <Text
+          onPress={editing() ? () => updateContact() : null}
+          style={{ paddingRight: 12, fontSize: 18, color: "#2962FF" }}
+        >
           {editing() ? "Save" : "Cancel"}
         </Text>
       )
     });
   }, [firstName, lastName, email]);
+  const updateContact = () => {
+    let arr = contacts;
+    let index = route.params.index;
+    let insert = contacts[index];
+    insert.first_name = firstName;
+    insert.last_name = lastName;
+    insert.email = email;
+    arr[index] = insert;
+    actions.setContactList(arr);
+  };
   return (
     <View>
       <Image
