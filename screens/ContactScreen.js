@@ -18,7 +18,7 @@ export default ({ navigation, route }) => {
           }}
           style={{ paddingRight: 12, fontSize: 18, color: "#2962FF" }}
         >
-          {editing ? "Save" : "Edit"}
+          {editing ? "Cancel" : "Edit"}
         </Text>
       )
     });

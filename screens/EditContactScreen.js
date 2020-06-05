@@ -1,11 +1,26 @@
-import React, { useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Image, StyleSheet, Text } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-export default ({ item }) => {
+export default ({ item, navigation }) => {
   const [firstName, setFirstName] = useState(item.first_name);
   const [lastName, setLastName] = useState(item.last_name);
   const [email, setEmail] = useState(item.email);
+  const editing = () => {
+    if (firstName !== item.first_name || lastName !== item.last_name || email !== item.email) {
+      return true;
+    }
+    return false;
+  };
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Text style={{ paddingRight: 12, fontSize: 18, color: "#2962FF" }}>
+          {editing() ? "Save" : "Cancel"}
+        </Text>
+      )
+    });
+  }, [firstName, lastName, email]);
   return (
     <View>
       <Image
@@ -55,6 +70,7 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   input: {
-    height: 40
+    height: 40,
+    fontSize: 16
   }
 });
