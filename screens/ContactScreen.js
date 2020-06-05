@@ -77,6 +77,11 @@ export default ({ navigation, route }) => {
           <Text style={[styles.name, { color: getColorSheet(darkTheme).text }]}>
             {user.first_name} {user.last_name}
           </Text>
+          {route && route.params && route.params.sync ? (
+            <Text style={{ textAlign: "center", color: getColorSheet(darkTheme).text }}>
+              (Synced Contact)
+            </Text>
+          ) : null}
           <Text style={[styles.fieldTitle, { color: getColorSheet(darkTheme).text }]}>email</Text>
           <Text
             onPress={() => {
