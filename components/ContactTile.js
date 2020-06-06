@@ -35,9 +35,13 @@ export default ({ item, index, navigation, sync }) => {
         {item.email ? (
           <Text style={[styles.email, { color: getColorSheet(darkTheme).text }]}>{item.email}</Text>
         ) : (
-          <Text style={[styles.email, { color: getColorSheet(darkTheme).text }]}>
-            {item.phone[0].number}
-          </Text>
+          item.phone &&
+          item.phone[0] &&
+          item.phone[0].number && (
+            <Text style={[styles.email, { color: getColorSheet(darkTheme).text }]}>
+              {item.phone[0].number}
+            </Text>
+          )
         )}
       </View>
     </TouchableOpacity>
