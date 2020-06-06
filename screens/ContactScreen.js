@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, Image, ScrollView, View, Linking } from "react-native";
+import { StyleSheet, Text, Image, ScrollView, View, Linking, Platform } from "react-native";
 import { extractInitialsFromName } from "../utils";
 import EditContactScreen from "./EditContactScreen";
 import { useMappedState } from "redux-react-hook";
@@ -107,7 +107,13 @@ export default ({ navigation, route }) => {
                   <Text>{el.label ? el.label : "default"}</Text>
                   <Text
                     onPress={() => {
-                      Linking.openURL(`mailto:${user.email}?subject=Greetings From Lazer`);
+                      let number = "";
+                      if (Platform.OS === "ios") {
+                        number = `telprompt:${el.number}`;
+                      } else {
+                        number = `tel:${el.number}`;
+                      }
+                      Linking.openURL(number);
                     }}
                     style={[styles.fieldValue, { color: getColorSheet(darkTheme).text }]}
                   >
