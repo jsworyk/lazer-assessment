@@ -104,7 +104,9 @@ export default ({ navigation, route }) => {
               </Text>
               {user.phone.map(el => (
                 <View style={{ marginTop: 8 }}>
-                  <Text>{el.label ? el.label : "default"}</Text>
+                  <Text style={{ color: getColorSheet(darkTheme).text }}>
+                    {el.label ? el.label : "default"}
+                  </Text>
                   <Text
                     onPress={() => {
                       let number = "";
