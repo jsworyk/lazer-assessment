@@ -82,15 +82,21 @@ export default ({ navigation, route }) => {
               (Synced Contact)
             </Text>
           ) : null}
-          <Text style={[styles.fieldTitle, { color: getColorSheet(darkTheme).text }]}>email</Text>
-          <Text
-            onPress={() => {
-              Linking.openURL(`mailto:${user.email}?subject=Greetings From Lazer`);
-            }}
-            style={[styles.fieldValue, { color: getColorSheet(darkTheme).text }]}
-          >
-            {user.email}
-          </Text>
+          {user.email && (
+            <>
+              <Text style={[styles.fieldTitle, { color: getColorSheet(darkTheme).text }]}>
+                email
+              </Text>
+              <Text
+                onPress={() => {
+                  Linking.openURL(`mailto:${user.email}?subject=Greetings From Lazer`);
+                }}
+                style={[styles.fieldValue, { color: getColorSheet(darkTheme).text }]}
+              >
+                {user.email}
+              </Text>
+            </>
+          )}
         </>
       )}
     </ScrollView>

@@ -15,21 +15,12 @@ export default ({ navigation }) => {
   const { darkTheme } = useMappedState(mappedState);
   const [retrievedContacts, setRetrievedContacts] = useState([]);
   const getContacts = () => {
-    console.log("here");
-    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-      title: "Contacts",
-      message: "Rolodex would like to access your contacts",
-      buttonPositive: "Accept"
-    }).then(res => {
-      console.log(res, "response");
-      Contacts.getAll((err, contacts) => {
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-        console.log(contacts, "get_here");
-        setRetrievedContacts(contacts);
-      });
+    Contacts.getAll((err, contacts) => {
+      if (err) {
+        throw err;
+      }
+      // Todo: Merge synced contacts into the contacts returned from the API response that are stored in our redux store.
+      setRetrievedContacts(contacts);
     });
   };
   useEffect(() => {
