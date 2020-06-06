@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import ContactTile from "../components/ContactTile";
 import { getColorSheet } from "../constants";
 import { useMappedState } from "redux-react-hook";
+import { objectPattern } from "@babel/types";
 
 const mappedState = state => ({
   darkTheme: state.themeReducer.darkTheme
@@ -40,7 +41,8 @@ export default ({ navigation }) => {
       item.emailAddresses && item.emailAddresses[0] && item.emailAddresses[0].email
         ? item.emailAddresses[0].email
         : null;
-    obj.avatr = item.thumbnailPath;
+    obj.avatar = item.thumbnailPath;
+    obj.phone = item.phoneNumbers ? item.phoneNumbers : null;
     return <ContactTile sync navigation={navigation} item={obj} index={index} />;
   };
   return (

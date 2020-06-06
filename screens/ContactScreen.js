@@ -97,6 +97,26 @@ export default ({ navigation, route }) => {
               </Text>
             </>
           )}
+          {user.phone && (
+            <>
+              <Text style={[styles.fieldTitle, { color: getColorSheet(darkTheme).text }]}>
+                {`phone number${user.phone.length > 0 ? "s" : null}`}
+              </Text>
+              {user.phone.map(el => (
+                <View style={{ marginTop: 8 }}>
+                  <Text>{el.label ? el.label : "default"}</Text>
+                  <Text
+                    onPress={() => {
+                      Linking.openURL(`mailto:${user.email}?subject=Greetings From Lazer`);
+                    }}
+                    style={[styles.fieldValue, { color: getColorSheet(darkTheme).text }]}
+                  >
+                    {el.number}
+                  </Text>
+                </View>
+              ))}
+            </>
+          )}
         </>
       )}
     </ScrollView>
