@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, PermissionsAndroid } from "react-native";
+import { View } from "react-native";
 import Contacts from "react-native-contacts";
 import { FlatList } from "react-native-gesture-handler";
 import Button from "../components/Button";
 import ContactTile from "../components/ContactTile";
 import { getColorSheet } from "../constants";
 import { useMappedState } from "redux-react-hook";
-import { objectPattern } from "@babel/types";
 
 const mappedState = state => ({
   darkTheme: state.themeReducer.darkTheme
@@ -55,4 +54,3 @@ export default ({ navigation }) => {
     </View>
   );
 };
-const styles = StyleSheet.create({});

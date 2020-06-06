@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   settingsItemText: {
     alignSelf: "center",
     fontSize: 18,
-    fontWeight: "bold",
-    color: getColorSheet().text
+    fontWeight: "bold"
   }
 });
