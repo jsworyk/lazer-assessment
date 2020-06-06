@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
 import { useMappedState } from "redux-react-hook";
 import { extractInitialsFromName } from "../utils";
+import { getColorSheet } from "../constants";
 const mappedState = state => ({
   darkTheme: state.themeReducer.darkTheme
 });
@@ -29,9 +30,9 @@ export default ({ item, index, navigation, sync }) => {
       )}
       <View style={styles.contactInfoContainer}>
         <Text
-          style={[styles.name, { color: darkTheme ? "#FFF" : "#333" }]}
+          style={[styles.name, { color: getColorSheet(darkTheme).text }]}
         >{`${item.first_name} ${item.last_name}`}</Text>
-        <Text style={[styles.email, { color: darkTheme ? "#FFF" : "#333" }]}>{item.email}</Text>
+        <Text style={[styles.email, { color: getColorSheet(darkTheme).text }]}>{item.email}</Text>
       </View>
     </TouchableOpacity>
   );
