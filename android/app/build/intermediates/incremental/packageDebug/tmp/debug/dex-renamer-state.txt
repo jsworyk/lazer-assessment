@@ -1,4 +1,4 @@
-#Sat Jun 06 00:08:35 CDT 2020
+#Sat Jun 06 00:35:40 CDT 2020
 base.10=/Users/joesworyk/Documents/Projects/Lazer/rolodex/android/app/build/intermediates/dex/debug/mergeLibDexDebug/classes_15.dex
 path.34=classes_9.dex
 path.33=classes_8.dex

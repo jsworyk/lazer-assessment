@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, PermissionsAndroid } from "react-native";
 import Contacts from "react-native-contacts";
 import { FlatList } from "react-native-gesture-handler";
 import Button from "../components/Button";
@@ -15,11 +15,21 @@ export default ({ navigation }) => {
   const { darkTheme } = useMappedState(mappedState);
   const [retrievedContacts, setRetrievedContacts] = useState([]);
   const getContacts = () => {
-    Contacts.getAll((err, contacts) => {
-      if (err) {
-        throw err;
-      }
-      setRetrievedContacts(contacts);
+    console.log("here");
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+      title: "Contacts",
+      message: "Rolodex would like to access your contacts",
+      buttonPositive: "Accept"
+    }).then(res => {
+      console.log(res, "response");
+      Contacts.getAll((err, contacts) => {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+        console.log(contacts, "get_here");
+        setRetrievedContacts(contacts);
+      });
     });
   };
   useEffect(() => {
